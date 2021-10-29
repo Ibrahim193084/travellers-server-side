@@ -30,6 +30,14 @@ async function run() {
         const tours = await cursor.toArray();
         res.send(tours)
     })
+    //GET SINGLE API
+    app.get('/tours/:id', async (req, res)=>{
+      const id = req.params.id;
+      const query = {_id: ObjectId(id)}
+      const tours = await tourCollection.findOne(query)
+      res.send(tours);
+
+  })
 
     } finally {
     //   await client.close();
