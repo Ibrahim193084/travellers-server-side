@@ -22,7 +22,14 @@ async function run() {
     try {
       await client.connect();
       const database = client.db("travel");
-      const servicesCollection = database.collection("services");
+      const tourCollection = database.collection("tours");
+
+      //Get API
+      app.get('/tours', async(req, res)=>{
+        const cursor = tourCollection.find({});
+        const tours = await cursor.toArray();
+        res.send(tours)
+    })
 
     } finally {
     //   await client.close();
