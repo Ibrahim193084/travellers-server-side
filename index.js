@@ -23,6 +23,7 @@ async function run() {
       await client.connect();
       const database = client.db("travel");
       const tourCollection = database.collection("tours");
+      const bookCollection = database.collection("book")
 
       //Get API
       app.get('/tours', async(req, res)=>{
@@ -36,9 +37,20 @@ async function run() {
       const query = {_id: ObjectId(id)}
       const tours = await tourCollection.findOne(query)
       res.send(tours);
-
   })
-
+  //Post api
+  app.post('/book', async (req, res) => {
+    const newBook = req.body;
+    const book = await bookCollection.insertOne(newBook);
+    // res.send('hit the post')
+    res.send(book)
+});
+ //GET API 
+ app.get('/book', async (req, res) =>{
+  const cursor = bookCollection.find({});
+  const book = await cursor.toArray();
+  res.send(book);
+});
     } finally {
     //   await client.close();
     }
