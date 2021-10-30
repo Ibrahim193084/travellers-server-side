@@ -64,7 +64,6 @@ async function run() {
   const id = req.params.id;
   const qurey = {_id: ObjectId(id)};
   const result = await bookCollection.deleteOne(qurey)
-  console.log('deleting booking with id', id, result);
   res.json(result);
 })
     } finally {
