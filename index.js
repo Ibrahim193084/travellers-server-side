@@ -66,6 +66,22 @@ async function run() {
   const result = await bookCollection.deleteOne(qurey)
   res.json(result);
 })
+
+   //Update api for update status
+   app.put('/book/:id', async (req, res) => {
+    const id = req.params.id;
+    const filter = { _id: ObjectId(id) };
+    const options = { upsert: true };
+    const updateDoc = {
+        $set: {
+          status: "Approved"
+        },
+    };
+    const result = await bookCollection.updateOne(filter, updateDoc, options)
+    console.log('updating', id)
+    res.json(result)
+})
+
     } finally {
     //   await client.close();
     }
