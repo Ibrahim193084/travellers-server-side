@@ -27,7 +27,7 @@ async function run() {
 
 
   //Post api for tour collection
-  app.post('/book', async (req, res) => {
+  app.post('/tours', async (req, res) => {
     const newtour = req.body;
     const tour = await tourCollection.insertOne(newtour);
     res.send(tour)
