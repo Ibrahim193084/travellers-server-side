@@ -67,7 +67,7 @@ async function run() {
   res.json(result);
 })
 
-   //UPDATE API
+   //Update api for update status
    app.put('/book/:id', async (req, res) => {
     const id = req.params.id;
     const updateStatus = req.body;
