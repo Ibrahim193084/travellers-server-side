@@ -25,38 +25,41 @@ async function run() {
       const tourCollection = database.collection("tours");
       const bookCollection = database.collection("book")
 
-      //Get API
+
+  //Post api for tour collection
+  app.post('/book', async (req, res) => {
+    const newtour = req.body;
+    const tour = await tourCollection.insertOne(newtour);
+    res.send(tour)
+});
+
+      //Get api for tourcollection
       app.get('/tours', async(req, res)=>{
         const cursor = tourCollection.find({});
         const tours = await cursor.toArray();
         res.send(tours)
     })
-    //GET SINGLE API
+    //Get single api  for tourcollection
     app.get('/tours/:id', async (req, res)=>{
       const id = req.params.id;
       const query = {_id: ObjectId(id)}
       const tours = await tourCollection.findOne(query)
       res.send(tours);
   })
-  //Post api
+  //Post api for book collection
   app.post('/book', async (req, res) => {
     const newBook = req.body;
     const book = await bookCollection.insertOne(newBook);
-    // res.send('hit the post')
     res.send(book)
 });
- //GET API 
+ //Get api for bookcollection
  app.get('/book', async (req, res) =>{
   const cursor = bookCollection.find({});
   const book = await cursor.toArray();
   res.send(book);
 });
 
-
-
-
-
- //DELETE API
+ //Delete api for bookcollection by id
  app.delete('/book/:id', async(req, res)=>{
   const id = req.params.id;
   const qurey = {_id: ObjectId(id)};
@@ -64,12 +67,6 @@ async function run() {
   console.log('deleting booking with id', id, result);
   res.json(result);
 })
-
-
-
-
-
-
     } finally {
     //   await client.close();
     }
