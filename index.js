@@ -67,14 +67,14 @@ async function run() {
   res.json(result);
 })
 
- //UPDATE API
+ //Update api for update status
  app.put('/book/:id', async (req, res) => {
   const id = req.params.id;
   const filter = { _id: ObjectId(id) };
   const options = { upsert: true };
   const updateDoc = {
       $set: {
-         status: 'Approved'
+         status: "Approved"
       },
   };
   const result = await bookCollection.updateOne(filter, updateDoc, options)
